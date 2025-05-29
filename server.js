@@ -11,9 +11,10 @@ const dashboardRoutes = require("./routes/dashboardRoutes")
 const app = express();
 
 const allowedOrigins = [
-  process.env.CLIENT_URL,                // your Vercel frontend
-  "http://localhost:3000"                // local dev frontend
-];
+  process.env.CLIENT_URL,                // your deployed frontend (set this in Render env vars)
+  "http://localhost:8000",               // local dev frontend
+  
+].filter(Boolean);
 
 app.use(cors({
   origin: function (origin, callback) {
