@@ -22,3 +22,9 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+.env
+.env.*        # For .env.development, .env.production, etc.
+.cache
+.next         # If using Next.js
+out           # If using Next.js static exports
+coverage      # If using Jest or other test tools
