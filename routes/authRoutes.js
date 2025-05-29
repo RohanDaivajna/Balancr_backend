@@ -23,7 +23,7 @@ router.post("/upload-image", upload.single('image'), (req,res)=>{
 });
 
 // ...existing code...
-app.get("/", (req, res) => {
+router.get("/", (req, res) => {
   res.send("Balancr backend is running!");
 });
 
