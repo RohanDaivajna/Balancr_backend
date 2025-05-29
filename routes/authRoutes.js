@@ -22,10 +22,6 @@ router.post("/upload-image", upload.single('image'), (req,res)=>{
     res.status(200).json({imageUrl});
 });
 
-// ...existing code...
-router.get("/", (req, res) => {
-  res.send("Balancr backend is running!");
-});
 
 
 
