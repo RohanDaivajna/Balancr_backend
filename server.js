@@ -13,6 +13,7 @@ const app = express();
 const allowedOrigins = [
   process.env.CLIENT_URL,                // your deployed frontend (set this in Render env vars)
   "http://localhost:8000",
+  "https://balancr-frontend.vercel.app",
   "https://balancr-frontend-git-main-rohan-daivajnas-projects.vercel.app",
   "https://balancr-frontend-puy2jxe0n-rohan-daivajnas-projects.vercel.app",              // local dev frontend
   
