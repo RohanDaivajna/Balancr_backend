@@ -2,6 +2,7 @@ const Income = require("../models/Income");
 const Expense = require("../models/Expense");
 const { isValidObjectId, Types } = require("mongoose");
 
+// Controller to get dashboard data for the authenticated user
 exports.getDashboardData = async (req, res) => {
     try {
         const userId = req.user.id;
@@ -19,7 +20,7 @@ exports.getDashboardData = async (req, res) => {
             { $group: { _id: null, total: { $sum: "$amount" } } },
         ]);
 
-        // 60-day Income
+        // 60-day Income transactions and total
         const last60DaysIncomeTransactions = await Income.find({
             userId,
             date: { $gte: new Date(Date.now() - 60 * 24 * 60 * 60 * 1000) },
@@ -30,7 +31,7 @@ exports.getDashboardData = async (req, res) => {
             0
         );
 
-        // 30-day Expenses
+        // 30-day Expense transactions and total
         const last30DaysExpenseTransactions = await Expense.find({
             userId,
             date: { $gte: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000) },
@@ -41,7 +42,7 @@ exports.getDashboardData = async (req, res) => {
             0
         );
 
-        // Recent Transactions (5 income + 5 expense)
+        // Recent Transactions (5 income + 5 expense, sorted by date)
         const recentTransactions = [
             ...(await Income.find({ userId }).sort({ date: -1 }).limit(5)).map(
                 (txn) => ({
@@ -57,6 +58,7 @@ exports.getDashboardData = async (req, res) => {
             ),
         ].sort((a, b) => new Date(b.date) - new Date(a.date));
 
+        // Respond with dashboard data
         res.json({
             totalBalance:
                 (totalIncome[0]?.total || 0) - (totalExpense[0]?.total || 0),

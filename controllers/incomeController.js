@@ -1,8 +1,8 @@
 const xlsx = require("xlsx")
 const Income = require("../models/Income");
 
+// Add a new income for the authenticated user
 exports.addIncome = async (req, res) => {
-    
    const userId = req.user.id;
 
     try{
@@ -26,6 +26,7 @@ exports.addIncome = async (req, res) => {
     }
 }
 
+// Get all incomes for the authenticated user
 exports.getAllIncome = async (req, res) => {
     const userId = req.user.id;
 
@@ -37,6 +38,7 @@ exports.getAllIncome = async (req, res) => {
     }
 }
 
+// Delete an income by ID
 exports.deleteIncome = async (req, res) => {
     try{
         await Income.findByIdAndDelete(req.params.id);
@@ -46,7 +48,7 @@ exports.deleteIncome = async (req, res) => {
     }
 };
 
-
+// Download all incomes as an Excel file
 exports.downloadIncomeExcel = async (req, res) => {
     const userId =  req.user.id;
     try{

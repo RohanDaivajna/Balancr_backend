@@ -1,10 +1,12 @@
 const User = require("../models/User")
 const jwt = require("jsonwebtoken");
 
+// Generate JWT token for a user
 const generateToken = (id) => {
     return jwt.sign({id}, process.env.JWT_SECRET, {expiresIn: "1h" })
 };
 
+// Register a new user
 exports.registerUser = async (req, res) => {
     
     const { fullName, email, password, profileImageUrl } = req.body;
@@ -36,6 +38,7 @@ exports.registerUser = async (req, res) => {
     }
 };
 
+// Login user and return token
 exports.loginUser = async (req, res) => {
 
     const {email, password} = req.body;
@@ -60,6 +63,7 @@ exports.loginUser = async (req, res) => {
 
 };
 
+// Get user info (protected route)
 exports.getUserInfo = async (req, res) => {
     try{
         const user = await User.findById(req.user.id).select("-password");

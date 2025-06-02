@@ -1,8 +1,8 @@
 const xlsx = require("xlsx")
 const Expense = require("../models/Expense");
 
+// Add a new expense for the authenticated user
 exports.addExpense = async (req, res) => {
-    
    const userId = req.user.id;
 
     try{
@@ -26,6 +26,7 @@ exports.addExpense = async (req, res) => {
     }
 }
 
+// Get all expenses for the authenticated user
 exports.getAllExpense = async (req, res) => {
     const userId = req.user.id;
 
@@ -37,6 +38,7 @@ exports.getAllExpense = async (req, res) => {
     }
 }
 
+// Delete an expense by ID
 exports.deleteExpense = async (req, res) => {
     try{
         await Expense.findByIdAndDelete(req.params.id);
@@ -46,7 +48,7 @@ exports.deleteExpense = async (req, res) => {
     }
 };
 
-
+// Download all expenses as an Excel file
 exports.downloadExpenseExcel = async (req, res) => {
     const userId =  req.user.id;
     try{
